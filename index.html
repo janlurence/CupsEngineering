@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cups Engineering - Professional Air Conditioning Services</title>
+    <link rel="icon" type="image/x-icon" href="tab-logo.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mokoto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .hero-gradient {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 1s ease-in-out;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .section-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .scroll-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .mokoto-font {
+            font-family: 'Mokoto', sans-serif;
+        }
+        
+        /* Product Card Styles */
+        .card{width:360px;background:#fff;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,.1);transition:.3s;font-family:'Segoe UI',sans-serif;margin:20px auto;overflow:hidden;position:relative;cursor:pointer}
+        .card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+        .badge{position:absolute;top:10px;right:10px;background: linear-gradient(to right,  rgba(169,3,41,1) 0%,rgba(196,72,72,1) 44%,rgba(170,34,56,1) 100%);color:#fff;padding:5px 10px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.2);z-index:10}
+        .tilt{overflow:hidden}
+        .img{height:200px;overflow:hidden}
+        .img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+        .card:hover .img img{transform:scale(1.05)}
+        .info{padding:20px}
+        .cat{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#71717A;margin-bottom:5px}
+        .title{font-size:18px;font-weight:700;color:#18181B;margin:0 0 10px;letter-spacing:-.5px}
+        .desc{font-size:13px;color:#52525B;line-height:1.4;margin-bottom:12px}
+        .feats{display:flex;gap:6px;margin-bottom:15px}
+        .feat{font-size:10px;background:#F4F4F5;color:#71717A;padding:3px 8px;border-radius:10px;font-weight:500}
+        .bottom{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+        .price{display:flex;flex-direction:column}
+        .old{font-size:13px;text-decoration:line-through;color:#A1A1AA;margin-bottom:2px}
+        .new{font-size:20px;font-weight:700;color:#18181B}
+        .btn{background:linear-gradient(45deg,#18181B,#27272A);color:#fff;border:none;border-radius:10px;padding:8px 15px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:.3s;box-shadow:0 3px 10px rgba(0,0,0,.1)}
+        .btn:hover{background:linear-gradient(45deg,#27272A,#3F3F46);transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,.15)}
+        .btn:before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:.5s}
+        .btn:hover:before{left:100%}
+        .icon{transition:transform .3s}
+        .btn:hover .icon{transform:rotate(-10deg) scale(1.1)}
+        .meta{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #F4F4F5;padding-top:12px}
+        .rating{display:flex;align-items:center;gap:2px}
+        .rcount{margin-left:6px;font-size:11px;color:#71717A}
+        .stock{font-size:11px;font-weight:600;color:#22C55E}
+        @media (max-width:400px){.card{width:90%}.title{font-size:16px}.img{height:180px}.bottom{flex-direction:column;align-items:flex-start;gap:10px}.price{margin-bottom:5px}.btn{width:100%;justify-content:center}}
+        
+        /* HVAC SPECIALIZED SERVICES STYLES */
+        .sec-icon {
+            position: relative;
+            display: inline-block;
+            padding: 0;
+            margin: 0 auto;
+        }
+        
+        .sec-icon::before {
+            content: "";
+            position: absolute;
+            height: 1px;
+            left: -70px;
+            margin-top: -5.5px;
+            top: 60%;
+            background: #2563eb;
+            width: 50px;
+        }
+        
+        .sec-icon::after {
+            content: "";
+            position: absolute;
+            height: 1px;
+            right: -70px;
+            margin-top: -5.5px;
+            top: 60%;
+            background: #2563eb;
+            width: 50px;
+        }
+        
+        .specialized-service-sec {
+            background-color: #f8fafc;
+        }
+        
+        .hvac-service-card {
+            width: 100%;
+            height: 100%;
+            padding: 2em 1.5em;
+            border-radius: 15px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            background: #fff;
+            text-align: center;
+        }
+        
+        .hvac-service-card::after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            position: absolute;
+            left: 0%;
+            top: -98%;
+            z-index: -2;
+            transition: all 0.4s cubic-bezier(0.77, -0.04, 0, 0.99);
+        }
+        
+        .hvac-service-card h3 {
+            font-size: 20px;
+            text-transform: capitalize;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 1em 0;
+            z-index: 3;
+            position: relative;
+        }
+        
+        .hvac-service-card p {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+            letter-spacing: 0.03em;
+            z-index: 3;
+            position: relative;
+        }
+        
+        .hvac-service-card .icon-wrapper {
+            background-color: #2563eb;
+            position: relative;
+            margin: auto;
+            font-size: 30px;
+            height: 2.5em;
+            width: 2.5em;
+            color: #ffffff;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            transition: all 0.5s ease;
+            z-index: 3;
+        }
+        
+        .hvac-service-card:hover::after {
+            top: 0%;
+        }
+        
+        .hvac-service-card:hover .icon-wrapper {
+            background-color: #ffffff;
+            color: #2563eb;
+            transform: scale(1.1);
+        }
+        
+        .hvac-service-card:hover h3 {
+            color: #ffffff;
+        }
+        
+        .hvac-service-card:hover p {
+            color: #e5e7eb;
+        }
+        
+        .hvac-service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+        /* HVAC SPECIALIZED SERVICES STYLES ENDED */
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <div class="text-blue-600 text-2xl font-bold flex items-center">
+                        <img src="logo.png" alt="Cups Engineering Logo" class="h-60 w-60 mr-2 mb-2">
+                    </div>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors">Home</a>
+                        <a href="#services" class="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
+                        <a href="#about" class="text-gray-700 hover:text-blue-600 transition-colors">About</a>
+                        <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors">Reviews</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="tel:555-COOL-AIR" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors">
+                        (555) COOL-AIR
+                    </a>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        Get Quote
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient min-h-screen flex items-center relative pt-16" id="hero">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full hero-content">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-up">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight text-white mokoto-font mt-8">
+                        Stay Cool with Professional AC Services
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 text-blue-100">
+                        Expert installation, repair, and maintenance for your comfort
+                    </p>
+                    <p class="text-lg mb-8 text-blue-200">
+                        24/7 emergency service • Licensed & insured • 100% satisfaction guaranteed
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <button class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-lg transition-colors shadow-lg">
+                            Emergency Service
+                        </button>
+                        <button class="bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 text-lg font-semibold rounded-lg transition-colors">
+                            Free Estimate
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-6 text-white">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold">15+</div>
+                            <div class="text-sm text-blue-200">Years Experience</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold">5000+</div>
+                            <div class="text-sm text-blue-200">Happy Customers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold">24/7</div>
+                            <div class="text-sm text-blue-200">Emergency Service</div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="card">
+                    <div class="badge">24/7 SERVICE</div>
+                    <div class="tilt">
+                        <div class="img"><img src="aircon.png" alt="Premium AC Unit"></div>
+                    </div>
+                    <div class="info">
+                        <div class="cat">Professional HVAC Services</div>
+                        <h2 class="title">Premium AC Installation</h2>
+                        <p class="desc">Expert installation with 5-year warranty, energy-efficient cooling, and professional certification.</p>
+                        <div class="feats">
+                            <span class="feat">Energy Star</span>
+                            <span class="feat">5-Year Warranty</span>
+                            <span class="feat">Same Day Install</span>
+                        </div>
+                        <div class="bottom">
+                            <div class="price">
+                                <span class="old">₱50,499</span>
+                                <span class="new">₱21,999</span>
+                            </div>
+                            <button class="btn">
+                                <span>Get Quote</span>
+                                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4"/>
+                                    <line x1="3" y1="6" x2="21" y2="6"/>
+                                    <path d="M16 10a4 4 0 01-8 0"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="meta">
+                            <div class="rating">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#FFD700" stroke="#FFD700" stroke-width="0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                <span class="rcount">245 Reviews</span>
+                            </div>
+                            <div class="stock">Available Now</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <main class="relative z-10 mt-8" id="services">
+        <!-- Main Services -->
+        <section class="mb-16 px-4 sm:px-6 lg:px-8 section-animate">
+            <div class="max-w-7xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                    <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Our Professional Services</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="service-card bg-cover bg-center bg-no-repeat p-6 rounded-xl cursor-pointer" style="background-image: url('repair.png'); background-blend-mode: overlay; background-color: rgba(0, 0, 0, 0.5);">
+                            <h3 class="text-xl font-bold mb-3 text-center text-white">AC Repair</h3>
+                            <p class="text-white text-center mb-4">Fast, reliable repairs for all AC brands and models</p>
+                            <ul class="text-sm text-white space-y-1">
+                                <li>• Diagnostic & troubleshooting</li>
+                                <li>• Component replacement</li>
+                                <li>• Same-day service available</li>
+                                <li>• 1-year warranty on repairs</li>
+                            </ul>
+                        </div>
+                        <div class="service-card bg-cover bg-center bg-no-repeat p-6 rounded-xl cursor-pointer" style="background-image: url('installation.png'); background-blend-mode: overlay; background-color: rgba(0, 0, 0, 0.5);">
+                            <h3 class="text-xl font-bold mb-3 text-center text-white">Installation</h3>
+                            <p class="text-white text-center mb-4">Professional installation of new AC systems</p>
+                            <ul class="text-sm text-white space-y-1">
+                                <li>• Central air systems</li>
+                                <li>• Ductless mini-splits</li>
+                                <li>• Window & portable units</li>
+                                <li>• Energy-efficient options</li>
+                            </ul>
+                        </div>
+                        <div class="service-card bg-cover bg-center bg-no-repeat p-6 rounded-xl cursor-pointer" style="background-image: url('maintenance.png'); background-blend-mode: overlay; background-color: rgba(0, 0, 0, 0.5);">
+                            <h3 class="text-xl font-bold mb-3 text-center text-white">Maintenance</h3>
+                            <p class="text-white text-center mb-4">Keep your AC running efficiently year-round</p>
+                            <ul class="text-sm text-white space-y-1">
+                                <li>• Seasonal tune-ups</li>
+                                <li>• Filter replacement</li>
+                                <li>• Coil cleaning</li>
+                                <li>• Preventive care plans</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HVAC SPECIALIZED SERVICES -->
+        <section id="specialized-services" class="specialized-service-sec py-16 section-animate">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800">
+                        Our
+                        <span class="text-blue-600">Specialized</span> Services
+                    </h2>
+                    <p class="sec-icon mt-4"><i class="fa-solid fa-snowflake text-blue-600"></i></p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                    <div class="hvac-service-card">
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-tools"></i>
+                        </div>
+                        <h3>Emergency Repair</h3>
+                        <p>
+                            24/7 emergency AC repair service. Our certified technicians respond quickly to restore your comfort.
+                        </p>
+                    </div>
+                    <div class="hvac-service-card">
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-wind"></i>
+                        </div>
+                        <h3>Duct Cleaning & Inspection</h3>
+                        <p>
+                            Professional duct cleaning to improve air quality and system efficiency with advanced equipment.
+                        </p>
+                    </div>
+                    <div class="hvac-service-card">
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3>Energy Efficiency Audits</h3>
+                        <p>
+                            Comprehensive energy audits to optimize your HVAC system and reduce monthly energy costs.
+                        </p>
+                    </div>
+                    <div class="hvac-service-card">
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <h3>Smart Thermostat Installation</h3>
+                        <p>
+                            Professional installation of smart thermostats for intelligent climate control and savings.
+                        </p>
+                    </div>
+                    <div class="hvac-service-card">
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-shield-alt"></i>
+                        </div>
+                        <h3>Preventive Maintenance Plans</h3>
+                        <p>
+                            Scheduled maintenance programs to keep your HVAC system running efficiently year-round.
+                        </p>
+                    </div>
+                    <div class="hvac-service-card">
+                        <div class="icon-wrapper">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h3>Dedicated Support Team</h3>
+                        <p>
+                            Professional customer service team available to handle all your HVAC service needs promptly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- HVAC SPECIALIZED SERVICES ENDED -->
+
+        <!-- Tie-Up Brands -->
+        <section class="py-16 bg-gray-50 section-animate">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Trusted Brand Partners</h2>
+                    <p class="text-lg text-gray-600">We work with industry-leading manufacturers to provide you with the best HVAC solutions</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="carrier.png" alt="Carrier" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="daikin.png" alt="Daikin" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="general-royal.png" alt="General Royal" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="panasonic-logo.png" alt="Panasonic" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="hitachi.png" alt="Hitachi" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="lg.png" alt="LG" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="samsung.png" alt="Samsung" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="midea.png" alt="Midea" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="york.png" alt="York" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="johnson-controls.png" alt="Johnson Controls" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <img src="koopel.png" alt="Koopel" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity">
+                    </div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <div class="text-blue-600 font-semibold text-sm">And More...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Areas -->
+        <section class="mb-16 px-4 sm:px-6 lg:px-8 section-animate" id="about">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Service Areas</h2>
+                
+                <div class="relative bg-cover bg-center bg-no-repeat rounded-2xl shadow-xl overflow-hidden" style="background-image: url('service-area.png');">
+                    <div class="absolute inset-0 bg-black/20"></div>
+                    
+                    <div class="relative z-10 p-8">
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <!-- Left Column -->
+                            <div class="bg-white/90 backdrop-blur-sm rounded-xl p-6">
+                                <h3 class="text-2xl font-bold mb-4 text-gray-800">We Serve the Greater Metro Area</h3>
+                                
+                                <div class="grid grid-cols-2 gap-6 mb-6">
+                                    <div>
+                                        <h4 class="font-semibold mb-3 text-blue-600">Residential</h4>
+                                        <ul class="space-y-2 text-sm text-gray-700">
+                                            <li>• Single family homes</li>
+                                            <li>• Apartments & condos</li>
+                                            <li>• Townhouses</li>
+                                            <li>• Mobile homes</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-3 text-blue-600">Commercial</h4>
+                                        <ul class="space-y-2 text-sm text-gray-700">
+                                            <li>• Office buildings</li>
+                                            <li>• Retail stores</li>
+                                            <li>• Restaurants</li>
+                                            <li>• Warehouses</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <p class="text-blue-700 font-semibold">Free service calls within 25 miles</p>
+                                    <p class="text-blue-600 text-sm mt-1">Extended service area available</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Column -->
+                            <div class="text-center">
+                                <div class="bg-white/90 backdrop-blur-sm rounded-xl p-8">
+                                    <h4 class="text-xl font-bold text-blue-800 mb-4">Coverage Area</h4>
+                                    <p class="text-blue-700 text-lg font-semibold mb-6">Greater Metro Region</p>
+                                    
+                                    <div class="grid grid-cols-2 gap-4 mb-6">
+                                        <div class="text-center">
+                                            <div class="text-2xl font-bold text-blue-600">50+</div>
+                                            <div class="text-sm text-gray-600">Cities Served</div>
+                                        </div>
+                                        <div class="text-center">
+                                            <div class="text-2xl font-bold text-blue-600">25</div>
+                                            <div class="text-sm text-gray-600">Mile Radius</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors w-full">
+                                        Check Service Area
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 px-4 sm:px-6 lg:px-8" id="contact">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="text-blue-400 text-2xl font-bold flex items-center mb-4">
+                        <img src="logo.png" alt="Cups Engineering Logo" class="h-64 w-64 mr-2">
+                    </div>
+                    <p class="text-gray-300 mb-4">Your trusted partner for all air conditioning needs. Licensed, insured, and committed to your comfort.</p>
+                    <div class="flex items-center space-x-2">
+                        <div class="flex">
+                            <div class="bg-yellow-400 text-black px-2 py-1 rounded text-sm font-bold">4.9★</div>
+                        </div>
+                        <span class="text-sm text-gray-400">Customer Rating</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-blue-400">Services</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">AC Repair</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Installation</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Maintenance</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Emergency Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-blue-400">Contact Info</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><span class="text-blue-400">Phone:</span> (555) cupsengineering</li>
+                        <li><span class="text-blue-400">Email:</span> cupsengineering@gmail.com</li>
+                        <li><span class="text-blue-400">Address:</span> 123 Service St, Metro City</li>
+                        <li><span class="text-blue-400">Hours:</span> 24/7 Emergency Service</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-blue-400">Get Started</h3>
+                    <div class="space-y-3">
+                        <button class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded transition-colors">
+                            Emergency Call
+                        </button>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition-colors">
+                            Free Estimate
+                        </button>
+                        <button class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-colors">
+                            Schedule Service
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Cups Engineering. All rights reserved. Developed by Jan Lurence Espinosa</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Background slideshow for hero section
+        const backgroundImages = [
+            '1.png',
+            '2.png',
+            '3.png',
+            '4.png',
+            '5.png'
+        ];
+        
+        let currentImageIndex = 0;
+        const heroSection = document.querySelector('.hero-gradient');
+        
+        function changeBackgroundImage() {
+            heroSection.style.backgroundImage = `url('${backgroundImages[currentImageIndex]}')`;
+            currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
+        }
+        
+        // Initialize first image
+        changeBackgroundImage();
+
+        // Change background every 3 seconds
+        setInterval(changeBackgroundImage, 3000);
+        
+        // Scroll animations
+        function animateOnScroll() {
+            const sections = document.querySelectorAll('.section-animate');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionVisible = 150;
+                
+                if (sectionTop < window.innerHeight - sectionVisible) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+        
+        // Run on page load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Service card click handlers
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const overlay = document.createElement('div');
+                overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                overlay.innerHTML = `
+                    <div class="bg-white p-8 rounded-lg max-w-md mx-4">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Service Details</h3>
+                        <p class="text-gray-600 mb-6">Get more information about this service and schedule an appointment with our certified technicians.</p>
+                        <div class="flex space-x-4">
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition-colors" onclick="this.closest('.fixed').remove()">
+                                Call Now
+                            </button>
+                            <button class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded transition-colors" onclick="this.closest('.fixed').remove()">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+                
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) {
+                        overlay.remove();
+                    }
+                });
+            });
+        });
+
+        // Emergency service button
+        document.querySelector('button:contains("Emergency Service")').addEventListener('click', function() {
+            alert('Emergency Service: Call (555) COOL-AIR now for immediate assistance! Our technicians are standing by 24/7.');
+        });
+
+        // Free estimate button
+        document.querySelector('button:contains("Free Estimate")').addEventListener('click', function() {
+            alert('Free Estimate: We\'ll send a certified technician to assess your needs and provide a detailed quote at no cost!');
+        });
+
+        // Get quote button
+        document.querySelector('button:contains("Get Quote")').addEventListener('click', function() {
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            overlay.innerHTML = `
+                <div class="bg-white p-8 rounded-lg max-w-md mx-4">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Get Your Free Quote</h3>
+                    <form class="space-y-4">
+                        <input type="text" placeholder="Your Name" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <input type="tel" placeholder="Phone Number" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <select class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+                            <option>Select Service Needed</option>
+                            <option>AC Repair</option>
+                            <option>New Installation</option>
+                            <option>Maintenance</option>
+                            <option>Emergency Service</option>
+                        </select>
+                        <textarea placeholder="Describe your AC issue or needs" class="w-full p-3 border rounded-lg h-20 focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+                        <div class="flex space-x-4">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition-colors">
+                                Submit Quote Request
+                            </button>
+                            <button type="button" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded transition-colors" onclick="this.closest('.fixed').remove()">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    overlay.remove();
+                }
+            });
+        });
+
+        // Phone number clicks
+        document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Calling CoolAir Pro at (555) COOL-AIR for immediate assistance!');
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96b2b0c985e384fd',t:'MTc1NDUyNjg5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
