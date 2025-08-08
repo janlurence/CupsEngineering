@@ -58,7 +58,13 @@ ready(() => {
           </div>
         </div>`;
       document.body.appendChild(overlay);
-      overlay.addEventListener('click', (e) => { if(e.target === overlay || e.target.classList.contains('close-modal')) overlay.remove(); });
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', (e) => { if(e.target === overlay || e.target.classList.contains('close-modal')) close(); });
+  const onKey = (e) => { if(e.key === 'Escape') { e.preventDefault(); close(); } };
+  document.addEventListener('keydown', onKey, { once: true });
+  // Focus management
+  const focusable = overlay.querySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if(focusable.length) focusable[0].focus();
     });
   });
 
@@ -130,7 +136,13 @@ ready(() => {
         </div>`;
       setTimeout(() => { if (overlay.parentNode) overlay.remove(); }, 5000);
     });
-    overlay.addEventListener('click', (e) => { if(e.target === overlay || e.target.classList.contains('close-modal')) overlay.remove(); });
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', (e) => { if(e.target === overlay || e.target.classList.contains('close-modal')) close(); });
+  const onKey = (e) => { if(e.key === 'Escape') { e.preventDefault(); close(); } };
+  document.addEventListener('keydown', onKey, { once: true });
+  // Focus first input
+  const firstInput = overlay.querySelector('input, select, textarea, button');
+  if(firstInput) firstInput.focus();
   }
 
   // Data-action bindings

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preload" as="image" href="1.png" />
 
     <script type="application/ld+json">
     {
@@ -45,6 +46,7 @@
     </script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
+    <a href="#services" class="skip-link">Skip to content</a>
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur shadow-sm transition-all duration-300" id="navbar" aria-label="Main">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,7 +64,7 @@
                     <a href="#about" class="text-gray-700 hover:text-blue-600 transition-colors">About</a>
                     <a href="#reviews" class="text-gray-700 hover:text-blue-600 transition-colors">Reviews</a>
                     <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">Contact</a>
-                    <a href="tel:555-2665-247" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap">(555) COOL-AIR</a>
+                    <a href="tel:555-2665-247" aria-label="Call Cups Engineering at (555) COOL-AIR" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors whitespace-nowrap">(555) COOL-AIR</a>
                     <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors" data-action="quote">Get Quote</button>
                 </div>
             </div>
@@ -102,7 +104,7 @@
 
                 <div class="card" aria-label="Featured Service">
                     <div class="badge">24/7 SERVICE</div>
-                    <div class="tilt"><div class="img"><img src="aircon.png" alt="Premium AC Unit" /></div></div>
+                    <div class="tilt"><div class="img"><img src="aircon.png" alt="Premium AC Unit" decoding="async" fetchpriority="high" /></div></div>
                     <div class="info">
                         <div class="cat">Professional HVAC Services</div>
                         <h2 class="title">Premium AC Installation</h2>
@@ -199,17 +201,17 @@
                     <p class="text-lg text-gray-600">We work with industry-leading manufacturers to provide you with the best HVAC solutions</p>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="carrier.png" alt="Carrier" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="daikin.png" alt="Daikin" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="general-royal.png" alt="General Royal" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="panasonic-logo.png" alt="Panasonic" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="hitachi.png" alt="Hitachi" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="lg.png" alt="LG" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="samsung.png" alt="Samsung" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="midea.png" alt="Midea" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="york.png" alt="York" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="johnson-controls.png" alt="Johnson Controls" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
-                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="koopel.png" alt="Koopel" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="carrier.png" alt="Carrier" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="daikin.png" alt="Daikin" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="general-royal.png" alt="General Royal" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="panasonic-logo.png" alt="Panasonic" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="hitachi.png" alt="Hitachi" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="lg.png" alt="LG" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="samsung.png" alt="Samsung" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="midea.png" alt="Midea" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="york.png" alt="York" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="johnson-controls.png" alt="Johnson Controls" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
+                    <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><img src="koopel.png" alt="Koopel" class="h-12 w-auto opacity-100 hover:opacity-90 transition-opacity" loading="lazy" decoding="async" /></div>
                     <div class="flex justify-center items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"><div class="text-blue-600 font-semibold text-sm">And More...</div></div>
                 </div>
             </div>

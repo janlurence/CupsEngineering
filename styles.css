@@ -1,6 +1,12 @@
 /* Global enhancements */
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+/* Ensure anchor targets are visible below the fixed header */
+section[id] { scroll-margin-top: 80px; }
 body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
+/* Skip link */
+.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{left:16px;top:16px;width:auto;height:auto;background:#1d4ed8;color:#fff;padding:8px 12px;border-radius:8px;z-index:10000;box-shadow:0 4px 12px rgba(0,0,0,.2)}
 
 /* Hero */
 .hero-gradient { position: relative; background-size: cover; background-position: center; background-repeat: no-repeat; transition: background-image 1s ease-in-out; }
